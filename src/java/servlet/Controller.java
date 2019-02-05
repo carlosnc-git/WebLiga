@@ -72,7 +72,7 @@ public class Controller extends HttpServlet {
             session.setAttribute("idJornada", idJornada);
             dispatcher = request.getRequestDispatcher("home.jsp");
             dispatcher.forward(request, response);
-        } else if (op.equals("registrar")) {
+        } else if (op.equals("login")) {
             String dni = (String)request.getParameter("dni");
             String nombre = (String)request.getParameter("nombre");
             usuario = em.find(Usuario.class, dni);
@@ -86,9 +86,14 @@ public class Controller extends HttpServlet {
             dispatcher = request.getRequestDispatcher("home.jsp");
             dispatcher.forward(request, response);
 
-        } else if (op.equals("dameJornada")) {
+        } else if (op.equals("logout")){
+            usuario = null;
+            session.setAttribute("usuario", usuario);
+            dispatcher = request.getRequestDispatcher("home.jsp");
+            dispatcher.forward(request, response);
+        }   else if (op.equals("dameJornada")) {
             int id = Integer.parseInt(request.getParameter("jornadaSeleccionada"));
-           
+            
         }
     }
 
