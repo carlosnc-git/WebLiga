@@ -91,8 +91,20 @@ public class Controller extends HttpServlet {
             session.setAttribute("usuario", usuario);
             dispatcher = request.getRequestDispatcher("home.jsp");
             dispatcher.forward(request, response);
-        }   else if (op.equals("dameJornada")) {
+        } else if (op.equals("dameJornada")) {
             int id = Integer.parseInt(request.getParameter("jornadaSeleccionada"));
+            if (id!=0){
+                sql = "select p from Partido p where p.idjornada=(select j.idjornada from Jornada j where j.idjornada="+id+")";
+                query = em.createQuery(sql);
+                partidos = query.getResultList();
+            } else {
+                partidos=null;
+            }
+            session.setAttribute("jornadaSeleccionada", id);
+            session.setAttribute("partidos",partidos);
+            dispatcher = request.getRequestDispatcher("home.jsp");
+            dispatcher.forward(request, response);
+        } else if (op.equals("nuevaApuesta")){
             
         }
     }
