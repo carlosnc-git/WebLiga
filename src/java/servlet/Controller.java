@@ -17,9 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -52,10 +50,8 @@ public class Controller extends HttpServlet {
         List<Jornada> jornadas;
         List<Partido> partidos;
         Usuario usuario = null;
-        EntityManager em = null;
+        EntityManager em = (EntityManager) session.getAttribute("em");
         int idJornada = -1;
-        
-        em = (EntityManager) session.getAttribute("em");
         if (em == null) {
 
             em = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -64,48 +60,59 @@ public class Controller extends HttpServlet {
 
         op = request.getParameter("op");
 
-        if (op.equals("inicio")) {
-            sql = "SELECT p FROM Jornada p";
-            query = em.createQuery(sql);
-            jornadas = query.getResultList();
-            session.setAttribute("listaJornadas", jornadas);
-            session.setAttribute("idJornada", idJornada);
-            dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
-        } else if (op.equals("login")) {
-            String dni = (String)request.getParameter("dni");
-            String nombre = (String)request.getParameter("nombre");
-            usuario = em.find(Usuario.class, dni);
-            if (usuario == null){
-                usuario = new Usuario(dni);
-                usuario.setNombre(nombre);
-                usuario.setPorraList(new ArrayList<>());
-                em.persist(usuario);
-            }
-            session.setAttribute("usuario", usuario);
-            dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
-
-        } else if (op.equals("logout")){
-            usuario = null;
-            session.setAttribute("usuario", usuario);
-            dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
-        } else if (op.equals("dameJornada")) {
-            int id = Integer.parseInt(request.getParameter("jornadaSeleccionada"));
-            if (id!=0){
-                sql = "select p from Partido p where p.idjornada=(select j.idjornada from Jornada j where j.idjornada="+id+")";
+        switch (op) {
+            case "inicio":
+                sql = "SELECT p FROM Jornada p";
                 query = em.createQuery(sql);
-                partidos = query.getResultList();
-            } else {
-                partidos=null;
-            }
-            session.setAttribute("jornadaSeleccionada", id);
-            session.setAttribute("partidos",partidos);
-            dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
-        } else if (op.equals("nuevaApuesta")){
-            
+                jornadas = query.getResultList();
+                session.setAttribute("listaJornadas", jornadas);
+                session.setAttribute("idJornada", idJornada);
+                dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
+                break;
+            case "login":
+                String dni = (String)request.getParameter("dni");
+                String nombre = (String)request.getParameter("nombre");
+                usuario = em.find(Usuario.class, dni);
+                if (usuario == null){
+                    usuario = new Usuario(dni);
+                    usuario.setNombre(nombre);
+                    usuario.setPorraList(new ArrayList<>());
+                    em.persist(usuario);
+                }   session.setAttribute("usuario", usuario);
+                dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
+                break;
+            case "logout":
+                usuario = null;
+                session.setAttribute("usuario", usuario);
+                dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
+                break;
+            case "dameJornada":
+                int id = Integer.parseInt(request.getParameter("jornadaSeleccionada"));
+                if (id!=0){
+                    sql = "select p from Partido p where p.idjornada=(select j.idjornada from Jornada j where j.idjornada="+id+")";
+                    query = em.createQuery(sql);
+                    partidos = query.getResultList();
+                } else {
+                    partidos=null;
+                }   session.setAttribute("jornadaSeleccionada", id);
+                session.setAttribute("partidos",partidos);
+                dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
+                break;
+            case "nuevaApuesta":
+                int golesLocal = Integer.parseInt(request.getParameter("golesLocal"));
+                int golesVisitante = Integer.parseInt(request.getParameter("golesVisitante"));
+                int idpartido = Integer.parseInt(request.getParameter("idpartido"));
+                Porra nuevaPorra = new Porra(usuario.getDni(), (short) idpartido);
+                nuevaPorra.setGoleslocal((short)golesLocal);
+                nuevaPorra.setGolesvisitante((short)golesVisitante);
+                em.persist(nuevaPorra);
+                break;
+            default:
+                break;
         }
     }
 
