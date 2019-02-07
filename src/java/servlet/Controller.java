@@ -110,6 +110,8 @@ public class Controller extends HttpServlet {
                 nuevaPorra.setGoleslocal((short)golesLocal);
                 nuevaPorra.setGolesvisitante((short)golesVisitante);
                 em.persist(nuevaPorra);
+                dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);
                 break;
             default:
                 break;
