@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import jpautil.JPAUtil;
 
@@ -78,7 +79,10 @@ public class Controller extends HttpServlet {
                     usuario = new Usuario(dni);
                     usuario.setNombre(nombre);
                     usuario.setPorraList(new ArrayList<>());
+                    EntityTransaction et = em.getTransaction();
+                    et.begin();
                     em.persist(usuario);
+                    et.commit();
                 }   session.setAttribute("usuario", usuario);
                 dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
@@ -90,14 +94,15 @@ public class Controller extends HttpServlet {
                 dispatcher.forward(request, response);
                 break;
             case "dameJornada":
-                int id = Integer.parseInt(request.getParameter("jornadaSeleccionada"));
+                int id = Integer.parseInt(request.getParameter("comboJornada"));
                 if (id!=0){
                     sql = "select p from Partido p where p.idjornada=(select j.idjornada from Jornada j where j.idjornada="+id+")";
                     query = em.createQuery(sql);
                     partidos = query.getResultList();
                 } else {
                     partidos=null;
-                }   session.setAttribute("jornadaSeleccionada", id);
+                }   
+                session.setAttribute("jornadaSeleccionada", id);
                 session.setAttribute("partidos",partidos);
                 dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
@@ -109,7 +114,10 @@ public class Controller extends HttpServlet {
                 Porra nuevaPorra = new Porra(usuario.getDni(), (short) idpartido);
                 nuevaPorra.setGoleslocal((short)golesLocal);
                 nuevaPorra.setGolesvisitante((short)golesVisitante);
+                EntityTransaction et = em.getTransaction();
+                et.begin();
                 em.persist(nuevaPorra);
+                et.commit();
                 break;
             default:
                 break;
