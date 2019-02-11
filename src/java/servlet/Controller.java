@@ -23,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import jpautil.JPAUtil;
+import model.PorraInfo;
 
 /**
  *
@@ -123,6 +124,28 @@ public class Controller extends HttpServlet {
                 et.commit();
                 dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);                
+                break;
+            case "apuestas":
+                int idPartido = Integer.parseInt(request.getParameter("partido"));
+                sql = "select po from Porra po where po.partido.idpartido ="+idPartido;
+                query = em.createQuery(sql);
+                List<Porra> porras = query.getResultList();
+                ArrayList<PorraInfo> filtrado = new ArrayList<>();
+                boolean coincidencia;
+                for (Porra porra:porras){
+                    coincidencia = false;
+                    for(PorraInfo pi:filtrado){                        
+                        if (pi.getGolesLocal()==porra.getGoleslocal() && pi.getGolesVisitante()==porra.getGolesvisitante()){
+                            pi.nuevaApuesta();
+                            coincidencia = true;
+                        }
+                    }
+                    if (!coincidencia) filtrado.add(new PorraInfo(porra.getGoleslocal(), porra.getGolesvisitante()));
+
+                }
+                request.setAttribute("listadoApuestas", filtrado);
+                dispatcher = request.getRequestDispatcher("apuestas.jsp");
+                dispatcher.forward(request, response);   
                 break;
             default:
                 break;

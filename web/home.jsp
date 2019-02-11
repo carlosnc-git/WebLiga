@@ -25,7 +25,7 @@
         short idJornada = (short) session.getAttribute("idJornada");
         List<Partido> partidos = (List<Partido>) session.getAttribute("partidos");
         Jornada j = new Jornada();
-        
+
     %>
     <body>
 
@@ -40,12 +40,11 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto" id="menu">
                             <li class="nav-item active">
-                                <%
-                                    if (usuario != null) {
+                                <%                                    if (usuario != null) {
                                 %>
                                 <form action="Controller?op=logout" method="post">
-                                <label class="text-white"><%=usuario.getNombre()%></label>                                
-                                <button type="submit" class="btn btn-danger" >LOGOUT</button>
+                                    <label class="text-white"><%=usuario.getNombre()%></label>                                
+                                    <button type="submit" class="btn btn-danger" >LOGOUT</button>
                                 </form>
                                 <%
                                 } else {
@@ -72,8 +71,8 @@
                             <%} else {%>
                             <option >Elija Jornada</option>
                             <%}
-                        for (Jornada jornada : jornadas) {%>            
-                            <option <%=(idJornada == jornada.getIdjornada()) ? "selected" : ""%> value="<%=jornada.getIdjornada()%>"><%="Jornada "+jornada.getFechainicio()+"   "+jornada.getFechafin()%></option>      
+                                for (Jornada jornada : jornadas) {%>            
+                            <option <%=(idJornada == jornada.getIdjornada()) ? "selected" : ""%> value="<%=jornada.getIdjornada()%>"><%="Jornada " + jornada.getFechainicio() + "   " + jornada.getFechafin()%></option>      
                             <%}%>
                         </select>
                     </div>
@@ -97,8 +96,8 @@
                         %>
                         <tr>
                             <%
-                                    if (usuario != null) {%>
-                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalInfo">Info</button></td>                       
+                                if (usuario != null) {%>
+                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalInfo" data-id="<%=partido.getIdpartido()%>" data-whatever="<%=usuario.getDni()%>">Info</button></td>                       
                             <%}%>                        
                             <td><img alt="" src="<%=partido.getLocal().getEscudo()%>" height="75px"	width="75px"/></td>
                             <td><%=partido.getLocal().getNombre()%></td>
@@ -125,16 +124,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body text-center">
-                                <h5>Equipo1 - Equipo2</h5>
-                                <!-- bucle for para poner el numero de apuestas-->
-                                <table class="table table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"><h5><!--golesLocal-->1-1<!--golesVisitante-->  ->  4<!--NumeroDeApuestas--> apuestas</h5></th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                            <div class="modal-body text-center" id="modalinfoapuestas">
+                                <!-- Rellenar con AJAX  -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn bg-danger text-black" data-dismiss="modal">Aceptar</button>
@@ -171,37 +162,37 @@
             <%}%> 
 
         </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Login & Register</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="Controller?op=login" method="post">
-                            <div class="modal-body">                        
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="dni" name="dni" aria-describedby="dniHelp" placeholder="DNI">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                                </div>                        
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">LOGIN || REGISTER</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
-                            </div>
-                        </form>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login & Register</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <form action="Controller?op=login" method="post">
+                        <div class="modal-body">                        
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="dni" name="dni" aria-describedby="dniHelp" placeholder="DNI">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                            </div>                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">LOGIN || REGISTER</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
 
-            <script src="js/jquery-3.3.1.slim.min.js"></script>
-            <script src="js/jquery-1.12.4.js"></script>
-            <script src="js/jquery-ui.js"></script>
+        <script src="js/jquery-3.3.1.slim.min.js"></script>
+        <script src="js/jquery-1.12.4.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/myjs.js"></script>
     </body>
