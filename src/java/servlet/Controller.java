@@ -121,6 +121,8 @@ public class Controller extends HttpServlet {
                 et.begin();
                 em.persist(nuevaPorra);
                 et.commit();
+                dispatcher = request.getRequestDispatcher("home.jsp");
+                dispatcher.forward(request, response);                
                 break;
             default:
                 break;
