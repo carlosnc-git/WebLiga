@@ -97,7 +97,7 @@
                         <tr>
                             <%
                                 if (usuario != null) {%>
-                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalInfo" data-id="<%=partido.getIdpartido()%>" data-whatever="<%=usuario.getDni()%>">Info</button></td>                       
+                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalInfo" data-id="<%=partido.getIdpartido()%>">Info</button></td>                       
                             <%}%>                        
                             <td><img alt="" src="<%=partido.getLocal().getEscudo()%>" height="75px"	width="75px"/></td>
                             <td><%=partido.getLocal().getNombre()%></td>
@@ -115,7 +115,7 @@
                 </table>
 
                 <!-- Modal Informacion -->
-                <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfo" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">

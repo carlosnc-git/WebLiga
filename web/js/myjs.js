@@ -9,10 +9,10 @@ function loadApuestas() {
     $('#modalInfo').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var idpartido = button.data('id');
-        var dni = button.data('whatever');
+        console.log('partido' + idpartido);
         $.ajax({
             type: "GET",
-            url: "Controller?op=apuestas&partido=" + idpartido +"&dniUsuario=" + dni,
+            url: "Controller?op=apuestas&partido=" + idpartido,
             success: function (info) {
                 $("#modalinfoapuestas").html(info);
             }
