@@ -43,8 +43,10 @@
                                 <%
                                     if (usuario != null) {
                                 %>
-                                <label class="text-white"><%=usuario.getNombre()%></label>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">LOGOUT</button>
+                                <form action="Controller?op=logout" method="post">
+                                <label class="text-white"><%=usuario.getNombre()%></label>                                
+                                <button type="submit" class="btn btn-danger" >LOGOUT</button>
+                                </form>
                                 <%
                                 } else {
                                 %>

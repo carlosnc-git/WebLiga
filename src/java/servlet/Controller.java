@@ -83,7 +83,10 @@ public class Controller extends HttpServlet {
                     et.begin();
                     em.persist(usuario);
                     et.commit();
-                }   session.setAttribute("usuario", usuario);
+                } else if (!usuario.getNombre().equals(nombre)){
+                    usuario=null;
+                }   
+                session.setAttribute("usuario", usuario);
                 dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
                 break;
