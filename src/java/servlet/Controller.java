@@ -48,11 +48,11 @@ public class Controller extends HttpServlet {
         String op;
         String sql;
         Query query;
-        List<Jornada> jornadas;
-        List<Partido> partidos;
+        List<Jornada> jornadas = null;
+        List<Partido> partidos = null;
         Usuario usuario = null;
         EntityManager em = (EntityManager) session.getAttribute("em");
-        int idJornada = -1;
+        short idJornada = -1;
         if (em == null) {
 
             em = JPAUtil.getEntityManagerFactory().createEntityManager();
@@ -94,7 +94,7 @@ public class Controller extends HttpServlet {
                 dispatcher.forward(request, response);
                 break;
             case "dameJornada":
-                int id = Integer.parseInt(request.getParameter("comboJornada"));
+                short id = Short.parseShort(request.getParameter("comboJornada"));
                 if (id!=0){
                     sql = "select p from Partido p where p.idjornada=(select j.idjornada from Jornada j where j.idjornada="+id+")";
                     query = em.createQuery(sql);
@@ -102,7 +102,7 @@ public class Controller extends HttpServlet {
                 } else {
                     partidos=null;
                 }   
-                session.setAttribute("jornadaSeleccionada", id);
+                session.setAttribute("idJornada", id);
                 session.setAttribute("partidos",partidos);
                 dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
