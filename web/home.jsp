@@ -4,6 +4,7 @@
     Author     : carlos
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="entities.Partido"%>
 <%@page import="entities.Jornada"%>
 <%@page import="java.util.ArrayList"%>
@@ -20,9 +21,9 @@
     </head>
     <%
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        ArrayList<Jornada> jornadas = (ArrayList<Jornada>) session.getAttribute("listaJornadas");
-        int idJornada = (int) session.getAttribute("idJornada");
-        ArrayList<Partido> partidos = (ArrayList<Partido>) session.getAttribute("partidos");
+        List<Jornada> jornadas = (List<Jornada>) session.getAttribute("listaJornadas");
+        short idJornada = (short) session.getAttribute("idJornada");
+        List<Partido> partidos = (List<Partido>) session.getAttribute("partidos");
         Jornada j = new Jornada();
         
     %>
@@ -59,9 +60,9 @@
 
             <!-- Buscador-->
             <div class="buscador">
-                <form class="form-inline" action="Controller?op=dameJornada" method="post" style="display: inline;">
+                <form class="form-inline" action="Controller?op=dameJornada" method="post" style="display: inline;" >
                     <div class="form-group">
-                        <select class="custom-select" id="inputGroupSelect04" name="comboJornada" onchange="this.form.submit()">
+                        <select class="custom-select" id="inputGroupSelect04" name="comboJornada" onchange="this.form.submit()" style="width: 300px">
                             <%
                                 if (idJornada == -1) {
                             %>
@@ -168,43 +169,37 @@
             <%}%> 
 
         </div>
-
-
-
-
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Login & Register</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="dni" aria-describedby="dniHelp" placeholder="DNI">
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Login & Register</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="Controller?op=login" method="post">
+                            <div class="modal-body">                        
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="dni" name="dni" aria-describedby="dniHelp" placeholder="DNI">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                                </div>                        
                             </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="nombre" placeholder="Nombre">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">LOGIN || REGISTER</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">LOGIN & REGISTER</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
-                    </div>
                 </div>
             </div>
-        </div>
 
-        <script src="js/jquery-3.3.1.slim.min.js"></script>
-        <script src="js/jquery-1.12.4.js"></script>
-        <script src="js/jquery-ui.js"></script>
+            <script src="js/jquery-3.3.1.slim.min.js"></script>
+            <script src="js/jquery-1.12.4.js"></script>
+            <script src="js/jquery-ui.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/myjs.js"></script>
     </body>
