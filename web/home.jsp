@@ -61,22 +61,22 @@
 
             <!-- Buscador-->
             <div class="buscador">
-                <form class="form-inline" action="Controller?op=dameJornada" method="post" style="display: inline;" >
-                    <div class="form-group">
-                        <select class="custom-select" id="inputGroupSelect04" name="comboJornada" onchange="this.form.submit()" style="width: 300px">
-                            <%
-                                if (idJornada == -1) {
-                            %>
-                            <option selected>Elija Jornada</option>
-                            <%} else {%>
-                            <option >Elija Jornada</option>
-                            <%}
-                                for (Jornada jornada : jornadas) {%>            
-                            <option <%=(idJornada == jornada.getIdjornada()) ? "selected" : ""%> value="<%=jornada.getIdjornada()%>"><%="Jornada " + jornada.getFechainicio() + "   " + jornada.getFechafin()%></option>      
-                            <%}%>
-                        </select>
-                    </div>
-                </form>                
+                    <form class="form-inline" action="Controller?op=dameJornada" method="post" style="display: inline;" >
+                        <div class="form-group">
+                            <select class="custom-select" id="inputGroupSelect04" name="comboJornada" onchange="this.form.submit()" style="width: 300px">
+                                <%
+                                    if (idJornada == -1) {
+                                %>
+                                <option selected>Elija Jornada</option>
+                                <%} else {%>
+                                <option >Elija Jornada</option>
+                                <%}
+                                    for (Jornada jornada : jornadas) {%>            
+                                <option <%=(idJornada == jornada.getIdjornada()) ? "selected" : ""%> value="<%=jornada.getIdjornada()%>" class="text-danger"><%="Jornada " + jornada.getFechainicio() + "   " + jornada.getFechafin()%></option>      
+                                <%}%>
+                            </select>
+                        </div>
+                    </form>   
             </div>
 
             <%
@@ -89,7 +89,7 @@
 
             <!-- Tabla-->
             <div id="tabla">
-                <table class="w-100 table table-striped text-center table-responsive-xl">
+                <table class="w-100 table table-striped text-center table-responsive-xl my-3">
                     <tbody>
                         <%
                             for (Partido partido : partidos) {
@@ -97,17 +97,17 @@
                         <tr>
                             <%
                                 if (usuario != null) {%>
-                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalInfo" data-id="<%=partido.getIdpartido()%>">Info</button></td>                       
+                            <td class="align-middle"><button type="button" class="btn btn-danger botonrojo" data-toggle="modal" data-target="#modalInfo" data-id="<%=partido.getIdpartido()%>"><img alt="" src="img/infoico.png" height="25px" width="25px"/></button></td>                       
                             <%}%>                        
-                            <td><img alt="" src="<%=partido.getLocal().getEscudo()%>" height="75px"	width="75px"/></td>
-                            <td><%=partido.getLocal().getNombre()%></td>
-                            <td><%=partido.getGoleslocal()%></td>
-                            <td>-</td>
-                            <td><%=partido.getGolesvisitante()%></td>
-                            <td><%=partido.getVisitante().getNombre()%></td>
-                            <td><img alt="" src="<%=partido.getVisitante().getEscudo()%>" height="75px"	width="75px"/></td>
+                            <td class="align-middle"><img alt="" src="<%=partido.getLocal().getEscudo()%>" height="80px" width="80px"/></td>
+                            <td class="align-middle"><%=partido.getLocal().getNombre()%></td>
+                            <td class="align-middle"><%=partido.getGoleslocal()%></td>
+                            <td class="align-middle">-</td>
+                            <td class="align-middle"><%=partido.getGolesvisitante()%></td>
+                            <td class="align-middle"><%=partido.getVisitante().getNombre()%></td>
+                            <td class="align-middle"><img alt="" src="<%=partido.getVisitante().getEscudo()%>" height="75px" width="75px"/></td>
                                 <%if (usuario != null) {%>
-                            <td><button type="button" class="btn btn-danger" data-id="<%=partido.getIdpartido()%>" data-whatever="<%=partido.getLocal().getNombre()%> - <%=partido.getVisitante().getNombre()%>" data-toggle="modal" data-target="#modalApuesta">Apuesta</button></td>
+                            <td class="align-middle"><button type="button" class="btn btn-danger botonrojo" data-id="<%=partido.getIdpartido() %>" data-whatever="<%=partido.getLocal().getNombre()%> - <%=partido.getVisitante().getNombre()%>" data-toggle="modal" data-target="#modalApuesta">Apuesta</button></td>
                             <%}%>                        
                         </tr> 
                         <%}%>
@@ -119,7 +119,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title bg-primary text-warning text-center" id="exampleModalLabel">Información apuestas actuales</h5>
+                                <h5 class="modal-title bg-primary text-center" id="exampleModalLabel" style="color: yellow">Información apuestas actuales</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -128,7 +128,7 @@
                                 <!-- Rellenar con AJAX  -->
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn bg-danger text-black" data-dismiss="modal">Aceptar</button>
+                                <button type="button" class="btn bg-danger text-black" data-dismiss="modal">Aceptar&nbsp <img alt="" src="img/contactico.png" height="20px" width="20px"/></button>
                             </div>
                         </div>
                     </div>
@@ -145,22 +145,16 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            
-                            
                             <div class="modal-body">
-                                <form action="Controller" method="post">
-                                <input type="hidden" name="op" value="nuevaApuesta"/>
+                                <form action="Controller?op=nuevaApuesta" method="post">
                                 <h5 class="text-center" id="partidomodal"></h5>
-                                <div class="col-l-2"><input type="text" id="golesLocal" name="golesLocal" class="form-control" placeholder="Gol Local"></div>
-                                <div class="col-l-2"><input type="text" id="golesVisitante" name="golesVisitante" class="form-control" placeholder="Gol Visitante"></div>
+                                <div class="col-l-2"><input type="text" id="golesLocal" name="golesLocal" class="form-control text-danger" placeholder="Gol Local"></div>
+                                <div class="col-l-2"><input type="text" id="golesVisitante" name="golesVisitante" class="form-control text-danger" placeholder="Gol Visitante"></div>
                                 <div class="col-l-2"><input type="hidden" id="idoculto" name="idoculto" class="form-control"></div>
-                                <div class="modal-footer">
-                                <button type="submit" class="btn">Apostar</button>
-                                <button type="button" class="btn" data-dismiss="modal">Cancel </button>
-                                </div>
+                                <button type="submit" class="btn">Apostar &nbsp <img alt="" src="img/contactico.png" height="20px" width="20px"/></button>
+                                <button type="button" class="btn" data-dismiss="modal">Cancel &nbsp <img alt="" src="img/cancelico.png" height="20px" width="20px"/></button>
                                 </form>
-                            </div>
-                            
+                            </div>                       
                         </div>
                     </div>
                 </div>
@@ -183,16 +177,14 @@
                     <form action="Controller?op=login" method="post">
                         <div class="modal-body">                        
                             <div class="form-group">
-                                <input type="text" class="form-control" id="dni" name="dni" aria-describedby="dniHelp" placeholder="DNI">
+                                <input type="text" class="form-control text-danger" id="dni" name="dni" aria-describedby="dniHelp" placeholder="DNI">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                                <input type="text" class="form-control text-danger" id="nombre" name="nombre" placeholder="Nombre">
                             </div>                        
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">LOGIN&REGISTER</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
-                        </div>
+                        <button type="submit" class="btn">LOGIN & REGISTER &nbsp <img alt="" src="img/contactico.png" height="20px" width="20px"/></button>&nbsp
+                        <button type="button" class="btn" data-dismiss="modal">CANCEL &nbsp <img alt="" src="img/cancelico.png" height="20px" width="20px"/></button>
                     </form>
                 </div>
             </div>

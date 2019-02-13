@@ -1,7 +1,7 @@
 
 .buscador{
   margin-top: 7px;
-  margin-left:40%;
+  margin-left: 35%;
 }
 
 
@@ -19,4 +19,9 @@
   width:85%;
   height:550px;
   margin-left: 10%;
+}
+
+.botonrojo{
+    width:85px;
+    height:40px;
 }
