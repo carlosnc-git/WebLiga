@@ -144,19 +144,21 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form action="Controller?op=nuevaApuesta" method="post">
                             <div class="modal-body">
                                 <h5 class="text-center"><!--EquipoLocal-->Levante - Eibar <!--EquipoVisitante--></h5>
-                                <div class="col-l-2"><input type="text" class="form-control" placeholder="Gol Local"></div>
-                                <div class="col-l-2"><input type="text" class="form-control" placeholder="Gol Visitante"></div>
+                                <div class="col-l-2"><input type="text" id="golesLocal" name="golesLocal" class="form-control" placeholder="Gol Local"></div>
+                                <div class="col-l-2"><input type="text" id="golesVisitante" name="golesVisitante" class="form-control" placeholder="Gol Visitante"></div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn" data-dismiss="modal">Apostar</button>
+                                <button type="submit" class="btn" data-dismiss="modal">Apostar</button>
                                 <button type="button" class="btn" data-dismiss="modal">Cancel </button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
+                
             </div>
 
             <%}%> 
