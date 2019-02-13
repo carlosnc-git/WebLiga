@@ -105,9 +105,9 @@
                             <td>-</td>
                             <td><%=partido.getGolesvisitante()%></td>
                             <td><%=partido.getVisitante().getNombre()%></td>
-                            <td><img alt="" src="<%=partido.getLocal().getEscudo()%>" height="75px"	width="75px"/></td>
+                            <td><img alt="" src="<%=partido.getVisitante().getEscudo()%>" height="75px"	width="75px"/></td>
                                 <%if (usuario != null) {%>
-                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalApuesta">Apuesta</button></td>
+                            <td><button type="button" class="btn btn-danger" data-id="<%=partido.getIdpartido() %>" data-whatever="<%=partido.getLocal().getNombre()%> - <%=partido.getVisitante().getNombre()%>" data-toggle="modal" data-target="#modalApuesta">Apuesta</button></td>
                             <%}%>                        
                         </tr> 
                         <%}%>
@@ -140,21 +140,26 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Apuesta</h5>
+                     
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="Controller?op=nuevaApuesta" method="post">
+                            
+                            
                             <div class="modal-body">
-                                <h5 class="text-center"><!--EquipoLocal-->Levante - Eibar <!--EquipoVisitante--></h5>
+                                <form action="Controller?op=nuevaApuesta" method="post">
+                                <h5 class="text-center" id="partidomodal"></h5>
                                 <div class="col-l-2"><input type="text" id="golesLocal" name="golesLocal" class="form-control" placeholder="Gol Local"></div>
                                 <div class="col-l-2"><input type="text" id="golesVisitante" name="golesVisitante" class="form-control" placeholder="Gol Visitante"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn" data-dismiss="modal">Apostar</button>
+                                <div class="col-l-2"><input type="hidden" id="idoculto" name="idoculto" class="form-control"></div>
+                                <div class="modal-footer">
+                                <button type="submit" class="btn">Apostar</button>
                                 <button type="button" class="btn" data-dismiss="modal">Cancel </button>
+                                </div>
+                                </form>
                             </div>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
@@ -180,7 +185,7 @@
                                 <input type="text" class="form-control" id="dni" name="dni" aria-describedby="dniHelp" placeholder="DNI">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
                             </div>                        
                         </div>
                         <div class="modal-footer">

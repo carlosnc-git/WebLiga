@@ -18,7 +18,7 @@
         <tr>
             <th scope="col"><%=pi.getGolesLocal()+"-"+pi.getGolesVisitante()+"  ->  "+pi.getApuestas()+" Apuestas"%></h5></th>
         </tr>
-        <$}%>
+        <%}%>
     </thead>
 </table>
 <%}
