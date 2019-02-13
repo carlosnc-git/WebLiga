@@ -107,7 +107,7 @@
                             <td><%=partido.getVisitante().getNombre()%></td>
                             <td><img alt="" src="<%=partido.getVisitante().getEscudo()%>" height="75px"	width="75px"/></td>
                                 <%if (usuario != null) {%>
-                            <td><button type="button" class="btn btn-danger" data-id="<%=partido.getIdpartido() %>" data-whatever="<%=partido.getLocal().getNombre()%> - <%=partido.getVisitante().getNombre()%>" data-toggle="modal" data-target="#modalApuesta">Apuesta</button></td>
+                            <td><button type="button" class="btn btn-danger" data-id="<%=partido.getIdpartido()%>" data-whatever="<%=partido.getLocal().getNombre()%> - <%=partido.getVisitante().getNombre()%>" data-toggle="modal" data-target="#modalApuesta">Apuesta</button></td>
                             <%}%>                        
                         </tr> 
                         <%}%>
@@ -148,7 +148,8 @@
                             
                             
                             <div class="modal-body">
-                                <form action="Controller?op=nuevaApuesta" method="post">
+                                <form action="Controller" method="post">
+                                <input type="hidden" name="op" value="nuevaApuesta"/>
                                 <h5 class="text-center" id="partidomodal"></h5>
                                 <div class="col-l-2"><input type="text" id="golesLocal" name="golesLocal" class="form-control" placeholder="Gol Local"></div>
                                 <div class="col-l-2"><input type="text" id="golesVisitante" name="golesVisitante" class="form-control" placeholder="Gol Visitante"></div>
@@ -189,7 +190,7 @@
                             </div>                        
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">LOGIN || REGISTER</button>
+                            <button type="submit" class="btn btn-primary">LOGIN&REGISTER</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                         </div>
                     </form>

@@ -22,12 +22,12 @@ public class PorraPK implements Serializable {
     private String dni;
     @Basic(optional = false)
     @Column(name = "IDPARTIDO")
-    private short idpartido;
+    private int idpartido;
 
     public PorraPK() {
     }
 
-    public PorraPK(String dni, short idpartido) {
+    public PorraPK(String dni, int idpartido) {
         this.dni = dni;
         this.idpartido = idpartido;
     }
@@ -40,11 +40,11 @@ public class PorraPK implements Serializable {
         this.dni = dni;
     }
 
-    public short getIdpartido() {
+    public int getIdpartido() {
         return idpartido;
     }
 
-    public void setIdpartido(short idpartido) {
+    public void setIdpartido(int idpartido) {
         this.idpartido = idpartido;
     }
 

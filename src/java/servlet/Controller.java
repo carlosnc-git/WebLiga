@@ -116,7 +116,7 @@ public class Controller extends HttpServlet {
                 int golesVisitante = Integer.parseInt(request.getParameter("golesVisitante"));
                 int idpartido = Integer.parseInt(request.getParameter("idoculto"));
                 usuario = (Usuario) session.getAttribute("usuario");
-                Porra nuevaPorra = new Porra(usuario.getDni(), (short) idpartido);
+                Porra nuevaPorra = new Porra(usuario.getDni(), idpartido);
                 nuevaPorra.setGoleslocal((short)golesLocal);
                 nuevaPorra.setGolesvisitante((short)golesVisitante);
                 EntityTransaction et = em.getTransaction();

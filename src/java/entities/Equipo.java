@@ -36,7 +36,7 @@ public class Equipo implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "IDEQUIPO")
-    private Short idequipo;
+    private Integer idequipo;
     @Column(name = "NOMBRE")
     private String nombre;
     @Column(name = "ESCUDO")
@@ -49,15 +49,15 @@ public class Equipo implements Serializable {
     public Equipo() {
     }
 
-    public Equipo(Short idequipo) {
+    public Equipo(Integer idequipo) {
         this.idequipo = idequipo;
     }
 
-    public Short getIdequipo() {
+    public Integer getIdequipo() {
         return idequipo;
     }
 
-    public void setIdequipo(Short idequipo) {
+    public void setIdequipo(Integer idequipo) {
         this.idequipo = idequipo;
     }
 
