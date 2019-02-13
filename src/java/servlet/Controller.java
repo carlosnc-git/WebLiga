@@ -114,7 +114,8 @@ public class Controller extends HttpServlet {
             case "nuevaApuesta":
                 int golesLocal = Integer.parseInt(request.getParameter("golesLocal"));
                 int golesVisitante = Integer.parseInt(request.getParameter("golesVisitante"));
-                int idpartido = Integer.parseInt(request.getParameter("idpartido"));
+                int idpartido = Integer.parseInt(request.getParameter("idoculto"));
+                usuario = (Usuario) session.getAttribute("usuario");
                 Porra nuevaPorra = new Porra(usuario.getDni(), (short) idpartido);
                 nuevaPorra.setGoleslocal((short)golesLocal);
                 nuevaPorra.setGolesvisitante((short)golesVisitante);
