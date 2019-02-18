@@ -1,35 +1,27 @@
-@charset "UTF-8";
 
-select {
-  font-size: 16px !important;
-}
-.fijo {
-    position: fixed;
-    bottom: 0;
-    left: 48%;
+.buscador{
+  margin-top: 7px;
+  margin-left: 35%;
 }
 
-h2 {
-	text-align: center;
-	margin-top: 5px;
-}
-.container-fondo {
-	background-color: aqua;
+
+#inputGroupSelect04{
+  width:30%;
+  min-width:200px;
 }
 
-.encabezado {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: #007bff;
+#contenedorprincipal{
+  margin-top: 10px
+
 }
 
-.tarjeta {
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top: 10px;
+#contenedorprincipal img{
+  width:85%;
+  height:550px;
+  margin-left: 10%;
 }
-container {
-    height: 100%;
+
+.botonrojo{
+    width:85px;
+    height:40px;
 }

@@ -52,7 +52,7 @@ public class Porra implements Serializable {
         this.porraPK = porraPK;
     }
 
-    public Porra(String dni, short idpartido) {
+    public Porra(String dni, int idpartido) {
         this.porraPK = new PorraPK(dni, idpartido);
     }
 
